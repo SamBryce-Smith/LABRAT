@@ -1,0 +1,14 @@
+name: labrat_pyranges
+channels:
+- bioconda
+dependencies:
+- python=3.6
+- gffutils=0.9
+- numpy
+- biopython
+- pyranges
+- pandas=1.0.*
+- statsmodels=0.10.*
+- scipy=1.3.*
+- salmon=0.14.*
+
