@@ -132,7 +132,7 @@ def get_last_two_exons(gr, id_col, region_id_col):
     return last_two
 
 
-def main(in_gtf, in_fasta, out_fasta):
+def main(in_gtf, in_fasta, out_prefix):
     '''
     '''
     # If have multiple 'tag' key-value pairs, values are stored as comma-separated strings in a single column
@@ -268,12 +268,14 @@ def main(in_gtf, in_fasta, out_fasta):
     tx_seqs = pd.concat(tx_seqs.values())
 
     #Write to FASTA
-    with open(out_fasta, "w") as outfa:
+    with open(out_prefix + ".fa", "w") as outfa:
         for _, row in tx_seqs.iterrows():
             outfa.write(">" + row["transcript_id"].split(".")[0] + "\n" + row["seq"] + "\n")
 
-    print("Done!")
+    print("Fasta done!")
 
+    last_two_exons.drop(["seq", "region_id"]).to_gtf(out_prefix + ".gtf")
+    print("GTF done!")
     # exons.apply(lambda df: df.loc[df.groupby("transcript_id")["exon_number"].nlargest(2), :])
 
 
